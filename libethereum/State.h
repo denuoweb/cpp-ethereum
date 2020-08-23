@@ -305,6 +305,22 @@ public:
 
 	/// Revert all recent changes up to the given @p _savepoint savepoint.
 	void rollback(size_t _savepoint);
+	
+	std::vector<std::pair<Address, bytes>>& createdContracts() {
+	return m_createdContracts;
+	}
+
+	std::vector<std::pair<Address, bytes>> const& createdContracts() const {
+	return m_createdContracts;
+	}
+
+	std::vector<Address>& destructedContracts() {
+	return m_destructedContracts;
+	}
+
+	std::vector<Address> const& destructedContracts() const {
+	return m_destructedContracts;
+	}
 
 	virtual ~State(){}
 
@@ -337,6 +353,8 @@ protected: // qtum
 
 	friend std::ostream& operator<<(std::ostream& _out, State const& _s);
 	std::vector<detail::Change> m_changeLog;
+	std::vector<std::pair<dev::Address, dev::bytes>> m_createdContracts;
+	std::vector<dev::Address> m_destructedContracts;
 };
 
 std::ostream& operator<<(std::ostream& _out, State const& _s);
