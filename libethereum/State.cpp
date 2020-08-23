@@ -514,6 +514,8 @@ void State::rollback(size_t _savepoint)
 
 std::pair<ExecutionResult, TransactionReceipt> State::execute(EnvInfo const& _envInfo, SealEngineFace const& _sealEngine, Transaction const& _t, Permanence _p, OnOpFunc const& _onOp)
 {
+	m_createdContracts.clear();
+	m_destructedContracts.clear();
 	auto onOp = _onOp;
 #if ETH_VMTRACE
 	if (isChannelVisible<VMTraceChannel>())
